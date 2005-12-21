@@ -1,12 +1,12 @@
 Summary:	Simple NUMA policy support
 Summary(pl):	Prosta obs³uga polityk NUMA
 Name:		numactl
-Version:	0.6.4
+Version:	0.8
 Release:	1
 License:	LGPL v2.1 (library), GPL v2 (utilities)
 Group:		Applications/System
 Source0:	ftp://ftp.suse.com/pub/people/ak/numa/%{name}-%{version}.tar.gz
-# Source0-md5:	4d79d74c69637e1d2a5d64dfc2662fab
+# Source0-md5:	36fb1f81d647d66cf9c119db3c215be4
 URL:		ftp://ftp.suse.com/pub/people/ak/numa/
 BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -36,11 +36,12 @@ Pliki nag³ówkowe biblioteki libnuma.
 %prep
 %setup -q
 
-sed -i -e 's/-g /%{rpmcflags} /' Makefile
+rm -f *.o
 
 %build
 %{__make} \
-	CC="%{__cc}"
+	CC="%{__cc}" \
+	OPT_CFLAGS="%{rpmcflags} -Wall"
 
 %install
 rm -rf $RPM_BUILD_ROOT
