@@ -1,12 +1,12 @@
 Summary:	Simple NUMA policy support
 Summary(pl):	Prosta obs³uga polityk NUMA
 Name:		numactl
-Version:	0.9.3
+Version:	0.9.7
 Release:	1
 License:	LGPL v2.1 (library), GPL v2 (utilities)
 Group:		Applications/System
 Source0:	ftp://ftp.suse.com/pub/people/ak/numa/%{name}-%{version}.tar.gz
-# Source0-md5:	6d5dd77c191f104a1df11f1603d214b3
+# Source0-md5:	4721ad30707283921cc5f0dd0812cb81
 URL:		ftp://ftp.suse.com/pub/people/ak/numa/
 BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -45,14 +45,14 @@ rm -f *.o
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_includedir},%{_mandir}/man{2,3,8}}
+install -d $RPM_BUILD_ROOT%{_mandir}/man5
 
 %{__make} install \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
 	libdir=$RPM_BUILD_ROOT%{_libdir}
 
 # missing in make install
-install get_mempolicy.2 $RPM_BUILD_ROOT%{_mandir}/man2
+install migratepages.8 numastat.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
 for f in `find $RPM_BUILD_ROOT%{_mandir}/man3 -type l` ; do
 	rm -f $f
@@ -74,14 +74,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/numademo
 %attr(755,root,root) %{_bindir}/numastat
 %attr(755,root,root) %{_libdir}/libnuma.so.*
+%{_mandir}/man5/numa_maps.5*
 %{_mandir}/man8/migratepages.8*
 %{_mandir}/man8/numactl.8*
+%{_mandir}/man8/numastat.8*
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libnuma.so
 %{_includedir}/numa*.h
-%{_mandir}/man2/get_mempolicy.2*
-%{_mandir}/man2/set_mempolicy.2*
-%{_mandir}/man2/mbind.2*
 %{_mandir}/man3/*
