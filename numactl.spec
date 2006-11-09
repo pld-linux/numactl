@@ -1,12 +1,12 @@
 Summary:	Simple NUMA policy support
 Summary(pl):	Prosta obs³uga polityk NUMA
 Name:		numactl
-Version:	0.9.10
+Version:	0.9.11
 Release:	1
 License:	LGPL v2.1 (library), GPL v2 (utilities)
 Group:		Applications/System
 Source0:	ftp://ftp.suse.com/pub/people/ak/numa/%{name}-%{version}.tar.gz
-# Source0-md5:	440f34e476ed5528a250edc041da5a41
+# Source0-md5:	84de1782dedac3a61f8f1babe5c4f12b
 URL:		ftp://ftp.suse.com/pub/people/ak/numa/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
