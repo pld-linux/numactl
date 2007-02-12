@@ -1,5 +1,5 @@
 Summary:	Simple NUMA policy support
-Summary(pl):	Prosta obs³uga polityk NUMA
+Summary(pl.UTF-8):   Prosta obsÅ‚uga polityk NUMA
 Name:		numactl
 Version:	0.9.11
 Release:	1
@@ -15,22 +15,22 @@ Simple NUMA policy support. It consists of a numactl program to run
 other programs with a specific NUMA policy and a libnuma to do
 allocations with NUMA policy in applications.
 
-%description -l pl
-Prosta obs³uga polityk NUMA. Pakiet zawiera program numactl do
-uruchamiania innych programów z okre¶lon± polityk± NUMA oraz libnuma
-do przydzielania pamiêci z polityk± NUMA w aplikacjach.
+%description -l pl.UTF-8
+Prosta obsÅ‚uga polityk NUMA. Pakiet zawiera program numactl do
+uruchamiania innych programÃ³w z okreÅ›lonÄ… politykÄ… NUMA oraz libnuma
+do przydzielania pamiÄ™ci z politykÄ… NUMA w aplikacjach.
 
 %package devel
 Summary:	Header files for libnuma library
-Summary(pl):	Pliki nag³ówkowe biblioteki libnuma
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe biblioteki libnuma
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
 Header files for libnuma library.
 
-%description devel -l pl
-Pliki nag³ówkowe biblioteki libnuma.
+%description devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe biblioteki libnuma.
 
 %prep
 %setup -q
