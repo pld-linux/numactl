@@ -1,5 +1,5 @@
 Summary:	Simple NUMA policy support
-Summary(pl.UTF-8):   Prosta obsługa polityk NUMA
+Summary(pl.UTF-8):	Prosta obsługa polityk NUMA
 Name:		numactl
 Version:	0.9.11
 Release:	1
@@ -22,7 +22,7 @@ do przydzielania pamięci z polityką NUMA w aplikacjach.
 
 %package devel
 Summary:	Header files for libnuma library
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki libnuma
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libnuma
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
