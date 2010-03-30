@@ -1,13 +1,13 @@
 Summary:	Simple NUMA policy support
 Summary(pl.UTF-8):	Prosta obsługa polityk NUMA
 Name:		numactl
-Version:	1.0.2
+Version:	2.0.3
 Release:	1
 License:	LGPL v2.1 (library), GPL v2 (utilities)
 Group:		Applications/System
-Source0:	ftp://ftp.suse.com/pub/people/ak/numa/%{name}-%{version}.tar.gz
-# Source0-md5:	392a5bc3e79f016edcaee0cb6ceadf90
-URL:		ftp://ftp.suse.com/pub/people/ak/numa/
+Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}.tar.gz
+# Source0-md5:	8e4fb249e5f719c25d7f433964fb9220
+URL:		http://oss.sgi.com/projects/libnuma/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -50,8 +50,10 @@ install -d $RPM_BUILD_ROOT%{_mandir}/man5
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
 	libdir=$RPM_BUILD_ROOT%{_libdir}
 
+install migspeed numamon $RPM_BUILD_ROOT%{_bindir}
+install move_pages.2 $RPM_BUILD_ROOT%{_mandir}/man2
 # missing in make install
-install migratepages.8 numastat.8 $RPM_BUILD_ROOT%{_mandir}/man8
+install {migratepages,migspeed,numastat}.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
 for f in `find $RPM_BUILD_ROOT%{_mandir}/man3 -type l` ; do
 	rm -f $f
@@ -69,12 +71,14 @@ rm -rf $RPM_BUILD_ROOT
 %doc CHANGES README TODO
 %attr(755,root,root) %{_bindir}/memhog
 %attr(755,root,root) %{_bindir}/migratepages
+%attr(755,root,root) %{_bindir}/migspeed
 %attr(755,root,root) %{_bindir}/numactl
 %attr(755,root,root) %{_bindir}/numademo
+%attr(755,root,root) %{_bindir}/numamon
 %attr(755,root,root) %{_bindir}/numastat
 %attr(755,root,root) %{_libdir}/libnuma.so.*
-%{_mandir}/man5/numa_maps.5*
 %{_mandir}/man8/migratepages.8*
+%{_mandir}/man8/migspeed.8*
 %{_mandir}/man8/numactl.8*
 %{_mandir}/man8/numastat.8*
 
@@ -82,4 +86,5 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libnuma.so
 %{_includedir}/numa*.h
+%{_mandir}/man2/*
 %{_mandir}/man3/*
