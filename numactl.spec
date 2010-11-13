@@ -1,12 +1,12 @@
 Summary:	Simple NUMA policy support
 Summary(pl.UTF-8):	Prosta obsługa polityk NUMA
 Name:		numactl
-Version:	2.0.3
+Version:	2.0.5
 Release:	1
 License:	LGPL v2.1 (library), GPL v2 (utilities)
 Group:		Applications/System
 Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}.tar.gz
-# Source0-md5:	8e4fb249e5f719c25d7f433964fb9220
+# Source0-md5:	7cafe683095d4677326bcc5e4b3cc541
 URL:		http://oss.sgi.com/projects/libnuma/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -32,10 +32,20 @@ Header files for libnuma library.
 %description devel -l pl.UTF-8
 Pliki nagłówkowe biblioteki libnuma.
 
+%package static
+Summary:	Static libnuma library
+Summary(pl.UTF-8):	Statyczna biblioteka libnuma
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+Static libnuma library.
+
+%description static -l pl.UTF-8
+Statyczna biblioteka libnuma.
+
 %prep
 %setup -q
-
-rm -f *.o
 
 %build
 %{__make} \
@@ -44,15 +54,14 @@ rm -f *.o
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_mandir}/man5
 
 %{__make} install \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
 	libdir=$RPM_BUILD_ROOT%{_libdir}
 
-install migspeed numamon $RPM_BUILD_ROOT%{_bindir}
-install move_pages.2 $RPM_BUILD_ROOT%{_mandir}/man2
 # missing in make install
+install numamon $RPM_BUILD_ROOT%{_bindir}
+install move_pages.2 $RPM_BUILD_ROOT%{_mandir}/man2
 install {migratepages,migspeed,numastat}.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
 for f in `find $RPM_BUILD_ROOT%{_mandir}/man3 -type l` ; do
@@ -76,7 +85,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/numademo
 %attr(755,root,root) %{_bindir}/numamon
 %attr(755,root,root) %{_bindir}/numastat
-%attr(755,root,root) %{_libdir}/libnuma.so.*
+%attr(755,root,root) %{_libdir}/libnuma.so.1
 %{_mandir}/man8/migratepages.8*
 %{_mandir}/man8/migspeed.8*
 %{_mandir}/man8/numactl.8*
@@ -86,5 +95,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libnuma.so
 %{_includedir}/numa*.h
-%{_mandir}/man2/*
-%{_mandir}/man3/*
+%{_mandir}/man2/move_pages.2*
+%{_mandir}/man3/numa.3*
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libnuma.a
