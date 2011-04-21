@@ -1,12 +1,12 @@
 Summary:	Simple NUMA policy support
 Summary(pl.UTF-8):	Prosta obsługa polityk NUMA
 Name:		numactl
-Version:	2.0.6
-Release:	2
+Version:	2.0.7
+Release:	1
 License:	LGPL v2.1 (library), GPL v2 (utilities)
 Group:		Applications/System
 Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}.tar.gz
-# Source0-md5:	e84a6351312ec786a4b7978fea76f92b
+# Source0-md5:	dadc81f3623475b14ca5110662ba3b04
 URL:		http://oss.sgi.com/projects/libnuma/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -61,16 +61,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # missing in make install
 install numamon $RPM_BUILD_ROOT%{_bindir}
-install move_pages.2 $RPM_BUILD_ROOT%{_mandir}/man2
 install {migratepages,migspeed,numastat}.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
 for f in `find $RPM_BUILD_ROOT%{_mandir}/man3 -type l` ; do
 	%{__rm} $f
 	echo '.so numa.3' > $f
 done
-
-# is in man-pages
-rm $RPM_BUILD_ROOT%{_mandir}/man2/move_pages.2*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
