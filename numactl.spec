@@ -1,12 +1,12 @@
 Summary:	Simple NUMA policy support
 Summary(pl.UTF-8):	Prosta obsługa polityk NUMA
 Name:		numactl
-Version:	2.0.7
+Version:	2.0.8
 Release:	1
 License:	LGPL v2.1 (library), GPL v2 (utilities)
 Group:		Applications/System
 Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}.tar.gz
-# Source0-md5:	dadc81f3623475b14ca5110662ba3b04
+# Source0-md5:	157def35edcc0ab94144398000b01d18
 URL:		http://oss.sgi.com/projects/libnuma/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -61,7 +61,6 @@ rm -rf $RPM_BUILD_ROOT
 
 # missing in make install
 install numamon $RPM_BUILD_ROOT%{_bindir}
-install {migratepages,migspeed,numastat}.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
 for f in `find $RPM_BUILD_ROOT%{_mandir}/man3 -type l` ; do
 	%{__rm} $f
