@@ -1,12 +1,12 @@
 Summary:	Simple NUMA policy support
 Summary(pl.UTF-8):	Prosta obsługa polityk NUMA
 Name:		numactl
-Version:	2.0.9
+Version:	2.0.10
 Release:	1
 License:	LGPL v2.1 (library), GPL v2 (utilities)
 Group:		Applications/System
 Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}.tar.gz
-# Source0-md5:	136685c8eaf9d6569c351fe1d453b30c
+# Source0-md5:	58443c6fe7e67126de07bd86e4d6b825
 URL:		http://oss.sgi.com/projects/libnuma/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -48,27 +48,30 @@ Statyczna biblioteka libnuma.
 %setup -q
 
 %build
-%{__make} \
-	CC="%{__cc}" \
-	OPT_CFLAGS="%{rpmcflags} -Wall"
+%configure \
+	--disable-silent-rules
+
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	prefix=$RPM_BUILD_ROOT%{_prefix} \
-	libdir=$RPM_BUILD_ROOT%{_libdir}
+	DESTDIR=$RPM_BUILD_ROOT
 
-# missing in make install
-install numamon $RPM_BUILD_ROOT%{_bindir}
-
-for f in `find $RPM_BUILD_ROOT%{_mandir}/man3 -type l` ; do
-	%{__rm} $f
-	echo '.so numa.3' > $f
-done
+# not needed (library without external dependencies)
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libnuma.la
+# in man-pages (it's Linux syscall, although API is defined in numaif.h)
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/man2/move_pages.2
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%pretrans
+# it used to be library itself, now it's SONAME symlink
+if [ -f %{_libdir}/libnuma.so.1 ]; then
+	rm -f %{_libdir}/libnuma.so.1
+fi
 
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
@@ -81,9 +84,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/migspeed
 %attr(755,root,root) %{_bindir}/numactl
 %attr(755,root,root) %{_bindir}/numademo
-%attr(755,root,root) %{_bindir}/numamon
 %attr(755,root,root) %{_bindir}/numastat
-%attr(755,root,root) %{_libdir}/libnuma.so.1
+%attr(755,root,root) %{_libdir}/libnuma.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libnuma.so.1
 %{_mandir}/man8/migratepages.8*
 %{_mandir}/man8/migspeed.8*
 %{_mandir}/man8/numactl.8*
