@@ -2,7 +2,7 @@ Summary:	Simple NUMA policy support
 Summary(pl.UTF-8):	Prosta obsługa polityk NUMA
 Name:		numactl
 Version:	2.0.10
-Release:	1
+Release:	2
 License:	LGPL v2.1 (library), GPL v2 (utilities)
 Group:		Applications/System
 Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}.tar.gz
