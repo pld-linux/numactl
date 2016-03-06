@@ -2,12 +2,13 @@ Summary:	Simple NUMA policy support
 Summary(pl.UTF-8):	Prosta obsługa polityk NUMA
 Name:		numactl
 Version:	2.0.11
-Release:	1
+Release:	2
 License:	LGPL v2.1 (library), GPL v2 (utilities)
 Group:		Applications/System
 Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}.tar.gz
 # Source0-md5:	d3bc88b7ddb9f06d60898f4816ae9127
 URL:		http://oss.sgi.com/projects/libnuma/
+Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -20,11 +21,19 @@ Prosta obsługa polityk NUMA. Pakiet zawiera program numactl do
 uruchamiania innych programów z określoną polityką NUMA oraz libnuma
 do przydzielania pamięci z polityką NUMA w aplikacjach.
 
+%package libs
+Summary:	libnuma library
+Group:		Libraries
+Conflicts:	%{name} < 2.0.11-2
+
+%description libs
+libnuma library
+
 %package devel
 Summary:	Header files for libnuma library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libnuma
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-libs = %{version}-%{release}
 
 %description devel
 Header files for libnuma library.
@@ -67,14 +76,14 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%pretrans
+%pretrans libs
 # it used to be library itself, now it's SONAME symlink
 if [ -f %{_libdir}/libnuma.so.1 ]; then
 	rm -f %{_libdir}/libnuma.so.1
 fi
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
+%post	libs -p /sbin/ldconfig
+%postun	libs -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
@@ -85,12 +94,15 @@ fi
 %attr(755,root,root) %{_bindir}/numactl
 %attr(755,root,root) %{_bindir}/numademo
 %attr(755,root,root) %{_bindir}/numastat
-%attr(755,root,root) %{_libdir}/libnuma.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libnuma.so.1
 %{_mandir}/man8/migratepages.8*
 %{_mandir}/man8/migspeed.8*
 %{_mandir}/man8/numactl.8*
 %{_mandir}/man8/numastat.8*
+
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libnuma.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libnuma.so.1
 
 %files devel
 %defattr(644,root,root,755)
