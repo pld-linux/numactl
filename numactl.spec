@@ -22,12 +22,16 @@ uruchamiania innych programów z określoną polityką NUMA oraz libnuma
 do przydzielania pamięci z polityką NUMA w aplikacjach.
 
 %package libs
-Summary:	libnuma library
+Summary:	NUMA policy library
+Summary(pl.UTF-8):	Biblioteka polityk NUMA
 Group:		Libraries
-Conflicts:	%{name} < 2.0.11-2
+Conflicts:	numactl < 2.0.11-2
 
 %description libs
-libnuma library
+NUMA policy library.
+
+%description libs -l pl.UTF-8
+Biblioteka polityk NUMA.
 
 %package devel
 Summary:	Header files for libnuma library
