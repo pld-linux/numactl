@@ -5,9 +5,12 @@ Version:	2.0.11
 Release:	2
 License:	LGPL v2.1 (library), GPL v2 (utilities)
 Group:		Applications/System
-Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}.tar.gz
+#Source0Download: https://github.com/numactl/numactl/releases
+# originally from (dead now):
+#Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	d3bc88b7ddb9f06d60898f4816ae9127
-URL:		http://oss.sgi.com/projects/libnuma/
+URL:		https://github.com/numactl/numactl
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
