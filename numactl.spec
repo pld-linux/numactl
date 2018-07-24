@@ -1,15 +1,13 @@
 Summary:	Simple NUMA policy support
 Summary(pl.UTF-8):	Prosta obsługa polityk NUMA
 Name:		numactl
-Version:	2.0.11
-Release:	2
+Version:	2.0.12
+Release:	1
 License:	LGPL v2.1 (library), GPL v2 (utilities)
 Group:		Applications/System
 #Source0Download: https://github.com/numactl/numactl/releases
-# originally from (dead now):
-#Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}.tar.gz
-Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	d3bc88b7ddb9f06d60898f4816ae9127
+Source0:	https://github.com/numactl/numactl/releases/download/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	2ba9777d78bfd7d408a387e53bc33ebc
 URL:		https://github.com/numactl/numactl
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -94,7 +92,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES README TODO
+%doc README.md
 %attr(755,root,root) %{_bindir}/memhog
 %attr(755,root,root) %{_bindir}/migratepages
 %attr(755,root,root) %{_bindir}/migspeed
@@ -115,6 +113,7 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libnuma.so
 %{_includedir}/numa*.h
+%{_pkgconfigdir}/numa.pc
 %{_mandir}/man3/numa.3*
 
 %files static
