@@ -1,13 +1,13 @@
 Summary:	Simple NUMA policy support
 Summary(pl.UTF-8):	Prosta obsługa polityk NUMA
 Name:		numactl
-Version:	2.0.12
+Version:	2.0.13
 Release:	1
 License:	LGPL v2.1 (library), GPL v2 (utilities)
 Group:		Applications/System
 #Source0Download: https://github.com/numactl/numactl/releases
 Source0:	https://github.com/numactl/numactl/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	2ba9777d78bfd7d408a387e53bc33ebc
+# Source0-md5:	9a9a94bfebf6c9c67defeedc9795e568
 URL:		https://github.com/numactl/numactl
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -99,6 +99,7 @@ fi
 %attr(755,root,root) %{_bindir}/numactl
 %attr(755,root,root) %{_bindir}/numademo
 %attr(755,root,root) %{_bindir}/numastat
+%{_mandir}/man8/memhog.8*
 %{_mandir}/man8/migratepages.8*
 %{_mandir}/man8/migspeed.8*
 %{_mandir}/man8/numactl.8*
